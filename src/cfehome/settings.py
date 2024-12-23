@@ -105,7 +105,6 @@ DATABASES = {
         'PORT': tmpPostgres.port or 5432,  # Default to 5432 if port is not provided
         'OPTIONS': {
             'sslmode': 'require',
-            'options': f'-c endpoint={endpoint_id}'
         },
     }
 }
