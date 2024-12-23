@@ -4,3 +4,5 @@ psycopg
 python-decouple
 dj-database-url
 python-dotenv
+
+postgresql://saas_owner:1C4hSdHJfIVu@/saas?options=endpoint%3Dep-flat-art-a8tpp11c

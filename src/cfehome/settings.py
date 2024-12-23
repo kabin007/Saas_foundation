@@ -87,17 +87,26 @@ WSGI_APPLICATION = "cfehome.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-##postgres sql database connection
+
+# Parse the DATABASE_URL from environment variables
 tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
 
+# Extract the endpoint ID from the hostname (assuming it's the first part of the domain)
+endpoint_id = tmpPostgres.hostname.split('.')[0]
+
+# Update the DATABASES dictionary
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': tmpPostgres.path.replace('/', ''),
+        'NAME': tmpPostgres.path.lstrip('/'),  # Remove the leading slash
         'USER': tmpPostgres.username,
         'PASSWORD': tmpPostgres.password,
         'HOST': tmpPostgres.hostname,
-        'PORT': 5432,
+        'PORT': tmpPostgres.port or 5432,  # Default to 5432 if port is not provided
+        'OPTIONS': {
+            'sslmode': 'require',
+            'options': f'-c endpoint={endpoint_id}'
+        },
     }
 }
 
