@@ -83,6 +83,7 @@ WSGI_APPLICATION = "cfehome.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+import dj_database_url
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -90,17 +91,15 @@ DATABASES = {
     }
 }
 
-DATABASE_URL=config("DATABASE_URL",cast=str)
+DATABASE_URL = config("DATABASE_URL", default=None)
 
-if DATABASE_URL is not None:
-    import dj_database_url
-    DATABASES = {
-        "default": dj_database_url.config(
+if DATABASE_URL and DATABASE_URL.strip():
+    DATABASES["default"] = dj_database_url.config(
         default=DATABASE_URL,
         conn_max_age=30,
-        conn_health_checks=True
-        )
-    }
+        conn_health_checks=True,
+    )
+
 
 
 
