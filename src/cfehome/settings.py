@@ -92,7 +92,7 @@ WSGI_APPLICATION = "cfehome.wsgi.application"
 tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
 
 # Extract the endpoint ID from the hostname (assuming it's the first part of the domain)
-endpoint_id = tmpPostgres.hostname.split('.')[0]
+endpoint_id = 'ep-flat-art-a8tpp11c.eastus2.azure.neon.tech'
 
 # Update the DATABASES dictionary
 DATABASES = {
@@ -105,6 +105,7 @@ DATABASES = {
         'PORT': tmpPostgres.port or 5432,  # Default to 5432 if port is not provided
         'OPTIONS': {
             'sslmode': 'require',
+            'options': f'-c endpoint={endpoint_id}'
         },
     }
 }
