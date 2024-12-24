@@ -16,6 +16,7 @@ from decouple import config
 from os import getenv
 from dotenv import load_dotenv
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -86,18 +87,25 @@ WSGI_APPLICATION = "cfehome.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',  # Tells Django to use PostgreSQL
-        'NAME': config('PGDATABASE'),  # PostgreSQL database name
-        'USER': config('PGUSER'),  # PostgreSQL user
-        'PASSWORD': config('PGPASSWORD'),  # PostgreSQL password
-        'HOST': config('PGHOST'),  # PostgreSQL host (e.g., railway-hosted URL)
-        'PORT': config('PGPORT'),  # PostgreSQL port (usually 5432)
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+DATABASE_URL=config('DATABASE_URL',cast=str)
+
+if DATABASE_URL is not None:
+        DATABASES = {
+        'default': dj_database_url.config(
+              default=DATABASE_URL,
+              conn_max_age=30,
+              conn_health_checks=True
+        )
+        }
+    
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

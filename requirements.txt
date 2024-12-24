@@ -1,7 +1,6 @@
 Django>=5.0,<5.1
 gunicorn
-psycopg
+psycopg[binary]
 python-decouple
-dj-database-url
 python-dotenv
-psycopg2-binary
+dj-database-url
