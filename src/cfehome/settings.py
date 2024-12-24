@@ -88,9 +88,6 @@ WSGI_APPLICATION = "cfehome.wsgi.application"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 
-
-# DATABASES
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -98,9 +95,10 @@ DATABASES = {
         'USER': config('PGUSER'),
         'PASSWORD': config('PGPASSWORD'),
         'HOST': config('PGHOST'),
-        'PORT': '5432',  # Default PostgreSQL port
+        'PORT': '5432',
         'OPTIONS': {
             'sslmode': 'require',
+            'options': f'-c search_path=public -c endpoint={config("NEON_ENDPOINT_ID")}'
         },
     }
 }
