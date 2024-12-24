@@ -100,7 +100,7 @@ DATABASES = {
         'HOST': config('PGHOST'),
         'PORT': '5432',  # Default PostgreSQL port
         'OPTIONS': {
-            'options': f"-c endpoint={config('PGHOST').split('.')[0]}"  # Extract endpoint ID
+            'sslmode': 'require',
         },
     }
 }
