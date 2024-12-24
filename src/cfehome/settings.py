@@ -87,25 +87,27 @@ WSGI_APPLICATION = "cfehome.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+
+#database setup
+# Get the DATABASE_URL with a default value
+DATABASE_URL =config('DATABASE_URL',default=None)
+
+#if not DATABASE_URL:
+ #   raise ValueError("DATABASE_URL environment variable is not set!")
+
+# Extract endpoint ID from the host
+#endpoint_id = DATABASE_URL.split('@')[1].split('.')[0]
+# Append endpoint parameter
+#DATABASE_URL = f"{DATABASE_URL}?options=endpoint%3D{endpoint_id}"
+
+# Database configuration
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': dj_database_url.config(
+        default=DATABASE_URL,
+        conn_max_age=600,
+        ssl_require=True,
+    )
 }
-
-DATABASE_URL=os.getenv('DATABASE_URL')
-
-if DATABASE_URL is not None:
-        DATABASES = {
-        'default': dj_database_url.config(
-              default=DATABASE_URL,
-              conn_max_age=30,
-              conn_health_checks=True
-        )
-        }
-    
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -142,6 +144,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = "static/"
+STATICFILES_BASE_DIR=BASE_DIR/ "staticfiles"
+STATICFILES_VENDOR_DIR=STATICFILES_BASE_DIR/ "vendors"
+
+#source for python manage.py collectstatic
+STATICFILES_DIRS=[
+    STATICFILES_BASE_DIR
+]
+
+#output for python manage.py collectstatic
+STATIC_ROOT=BASE_DIR.parent / "local-cdn"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
