@@ -94,7 +94,7 @@ DATABASES = {
     }
 }
 
-DATABASE_URL=config('DATABASE_URL',cast=str)
+DATABASE_URL=os.getenv('DATABASE_URL')
 
 if DATABASE_URL is not None:
         DATABASES = {
