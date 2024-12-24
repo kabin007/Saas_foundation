@@ -90,18 +90,15 @@ WSGI_APPLICATION = "cfehome.wsgi.application"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('PGDATABASE'),
-        'USER': config('PGUSER'),
-        'PASSWORD': config('PGPASSWORD'),
-        'HOST': config('PGHOST'),
-        'PORT': '5432',
-        'OPTIONS': {
-            'sslmode': 'require',
-            'options': f'-c search_path=public -c endpoint={config("NEON_ENDPOINT_ID")}'
-        },
+        'ENGINE': 'django.db.backends.postgresql',  # Tells Django to use PostgreSQL
+        'NAME': config('PGDATABASE'),  # PostgreSQL database name
+        'USER': config('PGUSER'),  # PostgreSQL user
+        'PASSWORD': config('PGPASSWORD'),  # PostgreSQL password
+        'HOST': config('PGHOST'),  # PostgreSQL host (e.g., railway-hosted URL)
+        'PORT': config('PGPORT'),  # PostgreSQL port (usually 5432)
     }
 }
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 

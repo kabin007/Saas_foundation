@@ -20,8 +20,6 @@ ENV PYTHONUNBUFFERED 1
 RUN apt-get update && apt-get install -y \
     # for postgres
     libpq-dev \
-    #for postgres sql client
-    postgresql-client \
     # for Pillow
     libjpeg-dev \
     # for CairoSVG
