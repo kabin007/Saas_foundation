@@ -94,17 +94,15 @@ tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
 
 
 DATABASES = {
-  'default': {
-    'ENGINE': 'django.db.backends.postgresql',
-    'NAME': tmpPostgres.path.replace('/',''),
-    'USER': tmpPostgres.username,
-    'PASSWORD': tmpPostgres.password,
-    'HOST': 'ep-flat-art-a8tpp11c.eastus2.azure.neon.tech',
-    'PORT': '5432',
-    'OPTIONS': {'sslmode': 'require'},
-  }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('PGDATABASE'),
+        'USER': os.getenv('PGUSER'),
+        'PASSWORD': os.getenv('PGPASSWORD'),
+        'HOST': os.getenv('PGHOST'),
+        'PORT': '5432',  # Default PostgreSQL port
+    }
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
