@@ -92,15 +92,17 @@ WSGI_APPLICATION = "cfehome.wsgi.application"
 # DATABASES
 tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
 
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': tmpPostgres.path.replace('/', ''),
-        'USER': tmpPostgres.username,
-        'PASSWORD': tmpPostgres.password,
-        'HOST': tmpPostgres.hostname,
-        'PORT': 5432,
-    }
+  'default': {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': tmpPostgres.path.replace('/',''),
+    'USER': tmpPostgres.username,
+    'PASSWORD': tmpPostgres.password,
+    'HOST': 'ep-flat-art-a8tpp11c.eastus2.azure.neon.tech',
+    'PORT': '5432',
+    'OPTIONS': {'sslmode': 'require'},
+  }
 }
 
 # Password validation
