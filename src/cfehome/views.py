@@ -2,7 +2,7 @@ import pathlib
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from visits.models import PageVisit
+from visits.models import PageVisit,Detail
 
 this_dir = pathlib.Path(__file__).resolve().parent
 
@@ -46,3 +46,18 @@ def my_old_home_page_view(request, *args, **kwargs):
     # html_file_path = this_dir / "home.html"
     # html_ = html_file_path.read_text()
     return HttpResponse(html_)
+
+def detail_view(request,*args,**kwargs):
+   if request.method=="POST":
+        name=request.POST.get('name')
+        age=request.POST.get('age')
+        gmail=request.POST.get('email')
+
+        detail,created=Detail.objects.create(
+            name=name,
+            age=age,
+            gmail=gmail
+        )
+        detail.save()
+
+   return render(request,"detail.html")

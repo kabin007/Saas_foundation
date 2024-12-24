@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="form-data">
+        <form action="{%url 'detail' %}">
+            {%csrf_token%}
+            <label for="name">
+                Enter your name
+            </label>
+            <input type="text" name="name">
+
+            <label for="age">
+                Enter your age
+            </label>
+            <input type="number" name="age">
+
+            <label for="gmail">
+                Enter your email
+            </label>
+            <input type="text" name="email">
+
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</body>
+</html>

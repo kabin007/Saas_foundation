@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from .views import home_view, about_view
+from .views import home_view, about_view,detail_view
 
 urlpatterns = [
     path("", home_view), #index page -> root page
@@ -25,4 +25,5 @@ urlpatterns = [
     path("hello-world/", home_view),
     path("hello-world.html", home_view),
     path("admin/", admin.site.urls),
+    path('detail/',detail_view,name="detail")
 ]
