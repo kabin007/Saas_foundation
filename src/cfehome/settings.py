@@ -90,17 +90,18 @@ WSGI_APPLICATION = "cfehome.wsgi.application"
 
 
 # DATABASES
-tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
-
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('PGDATABASE'),
-        'USER': os.getenv('PGUSER'),
-        'PASSWORD': os.getenv('PGPASSWORD'),
-        'HOST': os.getenv('PGHOST'),
+        'NAME': config('PGDATABASE'),
+        'USER': config('PGUSER'),
+        'PASSWORD': config('PGPASSWORD'),
+        'HOST': config('PGHOST'),
         'PORT': '5432',  # Default PostgreSQL port
+        'OPTIONS': {
+            'options': f"-c endpoint={config('PGHOST').split('.')[0]}"  # Extract endpoint ID
+        },
     }
 }
 # Password validation
